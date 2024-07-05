@@ -7,7 +7,7 @@ import requests
 from DependencyScanner.Dependency import Dependency
 from DependencyScanner.Vulnerability import Vulnerability
 
-class SynkAPI(object):
+class Synk(object):
     def __init__(self) -> None:
         self.synkAuthToken = os.getenv("SYNK_AUTH_TOKEN")
         if not self.synkAuthToken:
@@ -16,7 +16,7 @@ class SynkAPI(object):
         if not self.organizationId:
             raise Exception("No Environment Variable Set: ORGANIZATION_ID - maybe create .env-File or configurate Pipeline")
         self.snykApiUrl = 'https://snyk.io/api/v1/test/pip'
-        logging.info("SynkAPI " + json.dumps(self.__dict__(), indent=2))
+        logging.info("Synk " + json.dumps(self.__dict__(), indent=2))
 
     def __dict__(self) -> dict:
         return {
