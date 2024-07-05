@@ -35,6 +35,8 @@ class RequirementsFile(object):
                 if not line or "==" not in line or line.startswith('#'):
                     continue
                 
+                line = line.strip()
+
                 seperator = None
                 if "==" in line:
                     seperator = "=="
@@ -43,8 +45,8 @@ class RequirementsFile(object):
                 elif "~=" in line:
                     seperator = "~="
                 else:
-                    seperator = "None"       
-                
+                    seperator = "None"  
+                         
                 name, version = line.split(seperator)
                 version = version.split("[")[0]
                 extras = re.findall(r"\[(.*?)\]", line)

@@ -2,7 +2,7 @@ import logging
 import json
 
 from DependencyScanner.RequirmentsFile import RequirementsFile
-from DependencyScanner.Synk import SynkAPI
+from DependencyScanner.Sonatype import Sonatype
 from DependencyScanner.Vulnerability import Vulnerability
 
 class DependencyScanner(object):
@@ -12,7 +12,7 @@ class DependencyScanner(object):
         logging.info("DependencyScanner " + json.dumps(self.__dict__, indent=2))
 
         self.requirementsFile   = RequirementsFile(workingDir, requirementsFilePath)
-        self.synkApi            = SynkAPI()
+        self.sonatypeApi        = Sonatype()
 
-        self.vulnerarbilities = self.synkApi.checkDependecies(self.requirementsFile.getDependencies())
+        self.vulnerarbilities = self.sonatypeApi.checkDependecies(self.requirementsFile.getDependencies())
         print(self.vulnerarbilities)
