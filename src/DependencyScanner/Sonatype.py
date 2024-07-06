@@ -6,7 +6,7 @@ import re
 import requests
 
 from DependencyScanner.Dependency import Dependency
-from DependencyScanner.Vulnerability import Vulnerability
+from DependencyScanner.Vulnerability import DependencyVulnerability
 
 # limit only 128 Packges get at checked at one
 
@@ -34,7 +34,7 @@ class Sonatype(object):
             print(response.status_code)
             raise Exception(f"Fehler bei der API-Anfrage: {response.status_code}, {response.text}")
 
-    def checkDependecies(self, dependencies: list[Dependency]) -> list[Vulnerability]:
+    def checkDependecies(self, dependencies: list[Dependency]) -> list[DependencyVulnerability]:
         response = self.getDependecies(dependencies)
         vulnerabilities = []
         for package in response:
@@ -47,7 +47,7 @@ class Sonatype(object):
             name = re.match(r"pkg:pypi/([^@]+)@", package['coordinates']).group(1) or package['coordinates']
             version = package['coordinates'].split("@")[1] or "Version not given"
             for vulnerability in package["vulnerabilities"]:
-                vulnerabilities.append(Vulnerability(
+                vulnerabilities.append(DependencyVulnerability(
                     name, 
                     version,
                     vulnerability.get("id", "No id given"),

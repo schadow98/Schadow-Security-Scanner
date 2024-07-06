@@ -4,10 +4,10 @@ import json
 from DependencyScanner.RequirmentsFile import RequirementsFile
 from DependencyScanner.Sonatype import Sonatype
 from DependencyScanner.Synk import Synk
-from DependencyScanner.Vulnerability import Vulnerability
+from DependencyScanner.Vulnerability import DependencyVulnerability
 
 class DependencyScanner(object):
-    def __init__(self, workingDir: str, requirementsFilePath: str = None, dbs: list[str] = ["Sonatype"], vulnerabilityFilter: dict={}) -> list[Vulnerability]:
+    def __init__(self, workingDir: str, requirementsFilePath: str = None, dbs: list[str] = ["Sonatype"], vulnerabilityFilter: dict={}) -> list[DependencyVulnerability]:
         self.workingDir             = workingDir
         self.requirementsFilePath   = requirementsFilePath
         self.dbs                    = dbs
@@ -22,6 +22,9 @@ class DependencyScanner(object):
         self.printVulnerarbilities()
         
     def printVulnerarbilities(self)-> None:
+        logging.error("-"*20)
+        logging.error(f"DependencyScanner found {len(self.vulnerarbilities)} DependencyVulnerabilities")
+        logging.error("-"*20)
         for vulnerability in self.vulnerarbilities:
             logging.error(json.dumps(vulnerability.__dict__, indent=2))
 

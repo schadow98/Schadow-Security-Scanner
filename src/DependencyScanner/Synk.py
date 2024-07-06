@@ -5,7 +5,7 @@ import logging
 import requests
 
 from DependencyScanner.Dependency import Dependency
-from DependencyScanner.Vulnerability import Vulnerability
+from DependencyScanner.Vulnerability import DependencyVulnerability
 
 class Synk(object):
     def __init__(self) -> None:
@@ -25,7 +25,7 @@ class Synk(object):
           "snykApiUrl": "https://snyk.io/api/v1/test/npm"
         }
 
-    def checkDependecies(self, dependencies: list[Dependency]) -> list[Vulnerability]:
+    def checkDependecies(self, dependencies: list[Dependency]) -> list[DependencyVulnerability]:
 
         headers = {
             'Authorization': f'token {self.synkAuthToken}',

@@ -1,12 +1,26 @@
 {
-    "dependencyScanner": {
-        "db": [
-            "Sonatype"
-        ],
-        "vulnerabilityFilter":{
-            "cvssScore": "none",
-            "cvssVector": "S:U"
-        }
+  "dependencyScanner": {
+    "db": ["Sonatype"],
+    "vulnerabilityFilter": {
+      "cvssScore": "none",
+      "cvssVector": "S:U"
     }
-    
+  },
+
+  "injectionsScanner": [
+    {
+      "pattern": "(SELECT|INSERT|UPDATE|DELETE|DROP|EXEC)\\s+.*(['\"].*['\"].*|.*\\+.*|.*\\{\\d+\\}.*)",
+      "name": "sqlPattern",
+      "message": "SqlCommand with string concatenation detected",
+      "files": [".py"],
+      "kind": ["src"]
+    },
+    {
+        "pattern": "eval(",
+        "name": "eval",
+        "message": "SqlCommand with string concatenation detected",
+        "files": [".py"],
+        "kind": ["src", "ast"]
+      }
+  ]
 }

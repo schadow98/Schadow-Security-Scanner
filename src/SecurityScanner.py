@@ -3,8 +3,9 @@ import json
 import logging
 import os
 
-import Tools.Logger
-import Tools.setEnvironmentVariables
+from SASTScanner.InjectionScanner import InjectionScanner
+import tools.logger.initLogger
+import tools.setEnvironmentVariables
 
 from DependencyScanner.DependencyScanner import DependencyScanner
 
@@ -12,7 +13,7 @@ class SecurityScanner(object):
     def __init__(self, args: argparse.Namespace) -> None:
         self.path                       = args.path
         self.enableDependenyScanner     = args.disableDependenyScanner or True
-        self.enableSQLInjectionScanner  = args.disableSQLInjectionScanner or True
+        self.enableInjectionScanner     = args.disableInjectionScanner or True
         self.requirementsFile           = args.requirementsFile or None
         self.configFile                 = args.configFile or "./securityScannerConfig.json"
         logging.info("SecurityScanner " + json.dumps(self.__dict__, indent=2))
@@ -21,6 +22,10 @@ class SecurityScanner(object):
 
         if self.enableDependenyScanner:
             self.DependenyScanner = DependencyScanner(self.path, self.requirementsFile, self.config.get("dependencyScanner", {}).get("db"),  self.config.get("dependencyScanner", {}).get("vulnerabilityFilter"))
+
+        if self.enableInjectionScanner:
+             self.DependenyScanner = InjectionScanner(self.path)
+           
 
     def readConfig(self):
         if self.configFile and not os.path.exists(self.configFile):
@@ -60,10 +65,10 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        '-s', '--disableSQLInjectionScanner',
+        '-s', '--disableInjectionScanner',
         action='store_true',
         default=False,
-        help="Disables the SQL Injection Scanner (default: enabled)"
+        help="Disables the Injection Scanner (default: enabled)"
     )
 
     parser.add_argument(
