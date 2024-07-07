@@ -5,7 +5,7 @@ import logging
 import requests
 
 from DependencyScanner.Dependency import Dependency
-from DependencyScanner.Vulnerability import DependencyVulnerability
+from DependencyScanner.DependencyVulnerability import DependencyVulnerability
 
 class Synk(object):
     def __init__(self) -> None:

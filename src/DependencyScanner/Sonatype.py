@@ -6,7 +6,7 @@ import re
 import requests
 
 from DependencyScanner.Dependency import Dependency
-from DependencyScanner.Vulnerability import DependencyVulnerability
+from DependencyScanner.DependencyVulnerability import DependencyVulnerability
 
 # limit only 128 Packges get at checked at one
 
@@ -31,7 +31,7 @@ class Sonatype(object):
         if response.status_code == 200:
             return response.json()
         else:
-            print(response.status_code)
+            logging.warn(response.status_code)
             raise Exception(f"Fehler bei der API-Anfrage: {response.status_code}, {response.text}")
 
     def checkDependecies(self, dependencies: list[Dependency]) -> list[DependencyVulnerability]:

@@ -2,7 +2,9 @@ import os
 import logging
 import json
 
-class SASTScanner(object):
+from BaseScanner import BaseScanner
+
+class SASTScanner(BaseScanner):
     def __init__(self, workingDir: str):  # -> list[Vulnerability]:
         self.workingDir         = workingDir
         self.sourceCodeFiles    = set()
@@ -24,6 +26,7 @@ class SASTScanner(object):
                     self.sourceCodeFiles.add(full_path)
 
     def getFilteredSourceCodeFiles(self, filters = [".py"]) -> list[str]:
+        if len(filters) == 0: return self.sourceCodeFiles
         def filterByFilename(path):
             path = path.lower()
             for filter in filters:
@@ -31,5 +34,5 @@ class SASTScanner(object):
                     return True
             return False
             
-        return filter(filterByFilename, self.sourceCodeFiles)
+        return list(filter(filterByFilename, self.sourceCodeFiles))
 

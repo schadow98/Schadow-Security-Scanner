@@ -24,10 +24,10 @@ class SecurityScanner(object):
             self.DependenyScanner = DependencyScanner(self.path, self.requirementsFile, self.config.get("dependencyScanner", {}).get("db"),  self.config.get("dependencyScanner", {}).get("vulnerabilityFilter"))
 
         if self.enableInjectionScanner:
-             self.DependenyScanner = InjectionScanner(self.path)
+             self.DependenyScanner = InjectionScanner(self.path, self.config.get("injectionsScanner", []))
            
 
-    def readConfig(self):
+    def readConfig(self) -> None:
         if self.configFile and not os.path.exists(self.configFile):
             raise Exception(f"ConfigFile for SecurityScanner dont exists - please create File {self.configFile}")
         try:
