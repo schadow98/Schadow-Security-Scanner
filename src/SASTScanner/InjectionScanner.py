@@ -47,16 +47,14 @@ class InjectionScanner(SASTScanner):
                 for lineCounter, line in enumerate(file, start=1):
                     found = re.findall(regex, line)
                     if found:
-                        
-                        for match in found:
-                            sastVulnerabilities.append(SASTVulnerability(pattern.name, 
+                        sastVulnerabilities.append(SASTVulnerability(pattern.name, 
                                                                          pattern.message, 
                                                                          "srcScanner", 
                                                                          pattern.pattern, 
                                                                          filePath, 
                                                                          lineCounter, 
                                                                          line))
-            return sastVulnerabilities
+        return sastVulnerabilities
 
 
     def processAST(self, pattern: InjectionPattern, files: list[str]) -> list[SASTVulnerability]:

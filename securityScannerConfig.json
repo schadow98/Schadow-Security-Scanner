@@ -8,11 +8,17 @@
   },
 
   "injectionsScanner": [
-
     {
-        "pattern": "eval\\(",
+      "pattern": "(SELECT|INSERT|UPDATE|DELETE|DROP|EXEC)\\s+.*(['\"].*['\"].*|.*\\+.*|.*\\{\\d+\\}.*)",
+      "name": "sqlPattern",
+      "message": "SqlCommand with string concatenation detected",
+      "files": [".py"],
+      "kinds": ["src"]
+    },
+    {
+        "pattern": "(?<![\\w])eval\\(",
         "name": "eval",
-        "message": "SqlCommand with string concatenation detected",
+        "message": "eval Method found - please use ast.literal_eval instead",
         "files": [".py"],
         "kinds": ["src", "ast"]
       }
