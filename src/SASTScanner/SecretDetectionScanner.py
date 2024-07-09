@@ -1,10 +1,11 @@
 # Import the SASTScanner class from the SASTScanner module
 from SASTScanner.SASTScanner import SASTScanner
 
-class InjectionScanner(SASTScanner):
+class SecretDetectionScanner(SASTScanner):
+    # https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml
     def __init__(self, workingDir=".", patterns=None) -> None:
         """
-        Initialize the InjectionScanner class.
+        Initialize the SecretDetectionScanner class.
 
         Args:
             workingDir (str): The working directory where the scanner will operate. Default is the current directory.
