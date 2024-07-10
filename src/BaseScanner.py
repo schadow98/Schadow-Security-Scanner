@@ -3,7 +3,7 @@ import logging
 
 class BaseScanner:
     """
-    BaseScanner class is the basis for the othter scanners.
+    BaseScanner class is the basis for the other scanners.
     It 's provide mehthods, that all scanners need.
     """
 

@@ -8,6 +8,14 @@ from DependencyScanner.Synk import Synk
 from DependencyScanner.DependencyVulnerability import DependencyVulnerability
 
 class DependencyScanner(BaseScanner):
+    """
+    DependencyScanner class is the main class to analyze the dependencies and search in security dbs for vulnerabilities
+
+    Args:
+            workingDir (str): The working directory where the scanner will operate. Default is the current directory.
+            requirementsFilePath (str): path of the requirementsFile
+            dbs list[str]: string for which security dbs get searched
+    """
     def __init__(self, workingDir: str, requirementsFilePath: str = None, dbs: list[str] = ["Sonatype"], vulnerabilityFilter: dict={}) -> list[DependencyVulnerability]:
         self.workingDir             = workingDir
         self.requirementsFilePath   = requirementsFilePath
@@ -19,12 +27,12 @@ class DependencyScanner(BaseScanner):
 
         self.vulnerarbilities = []
         self.getVulnerarbilities()
-        self.optionalFilterDependencies()
+        self.optionalFilterVulterabilites()
         self.printVulnerarbilities()
         
 
 
-
+    # initializes the restapi call to the security dbs
     def getVulnerarbilities(self) -> None:
         if len(self.dbs) == 0:
             raise Exception("No db defined to check for vulnerability")
@@ -41,8 +49,8 @@ class DependencyScanner(BaseScanner):
                 continue
             self.vulnerarbilities += api.checkDependecies(self.requirementsFile.getDependencies())
 
-
-    def optionalFilterDependencies(self) -> None:
+    # filters the founded vulterabilites - for cvssScore = high -> only vulterabilites with higher cvssScore of 7 gets printed
+    def optionalFilterVulterabilites(self) -> None:
         if len(self.vulnerabilityFilter.keys()) == 0: return
 
         if "cvssScore" in self.vulnerabilityFilter:
@@ -59,7 +67,7 @@ class DependencyScanner(BaseScanner):
                     logging.warn("No valid filter for cvssScore defined - set to 0")
                     self.vulnerabilityFilter["cvssScore"] = 0
 
-
+        # function to calculate the boolean for the filter
         def checkVulnerability(vulnerability):
             for key, value in self.vulnerabilityFilter.items():
                 

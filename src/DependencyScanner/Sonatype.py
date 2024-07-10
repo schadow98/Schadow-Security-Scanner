@@ -8,13 +8,17 @@ import requests
 from DependencyScanner.Dependency import Dependency
 from DependencyScanner.DependencyVulnerability import DependencyVulnerability
 
-# limit only 128 Packges get at checked at one
 
 class Sonatype(object):
+    """
+    Sonatype class checks the dependency in the sonatype database
+    It is free to use, but has a limit of 128 Packges get at checked at one
+    """
     def __init__(self) -> None:
         self.apiUrl = 'https://ossindex.sonatype.org/api/v3/component-report'
         logging.info("Sonattype " + json.dumps(self.__dict__, indent=2))
 
+    # calls the rest api of the db
     def getDependecies(self, dependencies: list[Dependency]) -> dict:
         payload = {
             "coordinates": [
@@ -34,6 +38,7 @@ class Sonatype(object):
             logging.warn(response.status_code)
             raise Exception(f"Fehler bei der API-Anfrage: {response.status_code}, {response.text}")
 
+    # checks if the contains a vulnerability of the libary
     def checkDependecies(self, dependencies: list[Dependency]) -> list[DependencyVulnerability]:
         response = self.getDependecies(dependencies)
         vulnerabilities = []

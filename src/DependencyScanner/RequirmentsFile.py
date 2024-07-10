@@ -6,15 +6,19 @@ import json
 from DependencyScanner.Dependency import Dependency
 
 class RequirementsFile(object):
+    """
+    RequirementsFile class searches and parse a python requirmentsfile
+    requirmentsfile contains the name and vesion of a third-party libary
+    """
     def __init__(self, workingDir: str, requirementsFilePath: str = None) -> None:
         self.workingDir             = workingDir
         self.requirementsFilePath   = requirementsFilePath
         self.dependencies           = []
 
-        logging.info("RequirementsFile " + json.dumps(self.__dict__, indent=2))
+        logging.debug("RequirementsFile without File" + json.dumps(self.__dict__, indent=2))
         if not self.requirementsFilePath:
             self.findRequirementsFile()
-
+        logging.info("RequirementsFile " + json.dumps(self.__dict__, indent=2))
         self.parseRequirementsFile()
 
     def __str__(self) -> str:

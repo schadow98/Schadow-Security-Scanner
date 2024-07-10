@@ -3,9 +3,12 @@ import json
 import logging
 import os
 
-from SASTScanner.SecretDetectionScanner import SecretDetectionScanner
-from SASTScanner.InjectionScanner import InjectionScanner
+
+
 import tools.logger.initLogger
+from tools.logger.initLogger import changeDefaultLogLevel
+
+from SASTScanner.SASTScanner import SASTScanner
 import tools.setEnvironmentVariables
 
 from DependencyScanner.DependencyScanner import DependencyScanner
@@ -19,10 +22,15 @@ class SecurityScanner(object):
         self.path                       = args.path
         self.enableDependenyScanner     = not args.disableDependenyScanner
         self.enableInjectionScanner     = not args.disableInjectionScanner
-        self.enableSecretScanner        = not args.disableInjectionScanner
-        self.requirementsFile           = args.requirementsFile or None
+        self.enableSecretScanner        = not args.disableSecretScanner
+        self.enableCustomScanner        = args.enableCustomScanner
+        self.requirementsFile           = args.requirementsFile
         self.configFile                 = args.configFile or "./securityScannerConfig.json"
+        self.logLevel                   = args.logLevel
+        changeDefaultLogLevel(self.logLevel)
         logging.info("SecurityScanner " + json.dumps(self.__dict__, indent=2))
+
+
 
         self.readConfig()
 
@@ -30,11 +38,16 @@ class SecurityScanner(object):
             self.DependenyScanner   = DependencyScanner(self.path, self.requirementsFile, self.config.get("dependencyScanner", {}).get("db"),  self.config.get("dependencyScanner", {}).get("vulnerabilityFilter"))
 
         if self.enableInjectionScanner:
-             self.DependenyScanner  = InjectionScanner(self.path, self.config.get("injectionsScanner", []))
+             self.DependenyScanner  = SASTScanner("InjectionScanner", self.path, self.config.get("injectionsScanner", []))
 
         if self.enableSecretScanner:
-             self.SecretDetectionScanner     = SecretDetectionScanner(self.path, self.config.get("secretDetectionScanner", []))
-                   
+             self.SecretDetectionScanner     = SASTScanner("SecretDetectionScanner", self.path, self.config.get("secretDetectionScanner", []))
+        
+        if self.enableCustomScanner:
+            for key, value in self.config.items():
+                if key in ["dependencyScanner", "injectionsScanner", "secretDetectionScanner"]: continue
+                SASTScanner(key, self.path, value or [])
+
 
     def readConfig(self) -> None:
         """
@@ -84,6 +97,13 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
+        '-e', '--enableCustomScanner',
+        action='store_true',
+        default=False,
+        help="Enables the Custom Scanner - Feature demonstrates how to extend the security part (default: disabled)"
+    )
+
+    parser.add_argument(
         '-s', '--disableSecretScanner',
         action='store_true',
         default=False,
@@ -93,6 +113,14 @@ if __name__ == "__main__":
     parser.add_argument(
         '-r', '--requirementsFile',
         type=str,
+        default="requirements.txt",
+        help='Path to the requirements.txt file containing project dependencies (optional, default="requirements.txt").'
+    )
+
+    parser.add_argument(
+        '-l', '--logLevel',
+        type=str,
+        default="INFO",
         help='Path to the requirements.txt file containing project dependencies (optional, default="requirements.txt").'
     )
 

@@ -9,14 +9,15 @@ from SASTScanner.SASTPattern import SASTPattern
 from SASTScanner.SASTVulnerability import SASTVulnerability
 
 class SASTScanner(BaseScanner):
-    def __init__(self, workingDir: str, patterns = []):  # -> list[Vulnerability]:
+    def __init__(self, name:str, workingDir: str, patterns: list[dict] = []):  # -> list[Vulnerability]:
+        self.name = name 
         self.workingDir         = workingDir
         self.sourceCodeFiles    = set()
         self.findAllSourceCodeFiles()      
         
         self.patterns = patterns
         self.vulnerarbilities = []
-        logging.info(f"{self.__class__.__name__} " + json.dumps(self.__dict__(), indent=2))
+        logging.info(f"{self.name} " + json.dumps(self.__dict__(), indent=2))
         
         self.scannInjectionPatterns()
         self.printVulnerarbilities()
@@ -32,13 +33,15 @@ class SASTScanner(BaseScanner):
         # List all files in the directory
         for root, _, filenames in os.walk(self.workingDir):
             # skip caching - binary files cant get proceeded
-            if "__pycache__" in root: continue
+            # skipping logs - becouse else the securityscanner finds their a lot of vulnarability
+            if "__pycache__" in root or "logs" in root: continue
             for filename in filenames:
                 full_path = os.path.join(root, filename)
                 if not full_path.startswith('.\\.'):
                     self.sourceCodeFiles.add(full_path)
 
     def getFilteredSourceCodeFiles(self, filters = [".py"]) -> list[str]:
+
         if len(filters) == 0: return self.sourceCodeFiles
         def filterByFilename(path):
             path = path.lower()

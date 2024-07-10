@@ -53,5 +53,16 @@
       "files": [],
       "kinds": ["src"]
     }      
-  ]
+  ],
+  "XSS_ExampleScanner":  [
+      {
+        "pattern": "['\"]<.*?{.*?request.args.get\\(['\"].*?['\"].*?\\)}?.*?>['\"]",
+        "name": "XSS",
+        "message": "Crosside Scripting detected",
+        "files": [],
+        "kinds": ["src"]
+      }  
+
+    ]
+  
 }

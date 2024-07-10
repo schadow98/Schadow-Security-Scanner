@@ -8,6 +8,10 @@ from DependencyScanner.Dependency import Dependency
 from DependencyScanner.DependencyVulnerability import DependencyVulnerability
 
 class Synk(object):
+    """
+    Synk class checks the dependency in the synk security database
+    It needs a payment -> and then environmentvariables of the account need to set
+    """
     def __init__(self) -> None:
         self.synkAuthToken = os.getenv("SYNK_AUTH_TOKEN")
         if not self.synkAuthToken:
