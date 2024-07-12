@@ -18,3 +18,10 @@ class Dependency(object):
 
     def __str__(self) -> str:
         return f"Name: {self.name} - Version: {self.version} - Extra: {self.extra}"
+    
+    def __eq__(self, other):
+        return (
+            (self.name == other.name ) and 
+            (self.version == other.version ) and 
+            (self.extra == other.extra )
+    )

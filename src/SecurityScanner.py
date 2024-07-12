@@ -27,6 +27,7 @@ class SecurityScanner(object):
         self.requirementsFile           = args.requirementsFile
         self.configFile                 = args.configFile or "./securityScannerConfig.json"
         self.logLevel                   = args.logLevel
+        self.scanners                    = []
         changeDefaultLogLevel(self.logLevel)
         logging.info("SecurityScanner " + json.dumps(self.__dict__, indent=2))
 
@@ -36,17 +37,29 @@ class SecurityScanner(object):
 
         if self.enableDependenyScanner:
             self.DependenyScanner   = DependencyScanner(self.path, self.requirementsFile, self.config.get("dependencyScanner", {}).get("db"),  self.config.get("dependencyScanner", {}).get("vulnerabilityFilter"))
+            self.scanners.append(self.DependenyScanner)
+
 
         if self.enableInjectionScanner:
-             self.DependenyScanner  = SASTScanner("InjectionScanner", self.path, self.config.get("injectionsScanner", []))
+            self.InjectionScanner  = SASTScanner("InjectionScanner", self.path, self.config.get("injectionsScanner", []))
+            self.scanners.append(self.InjectionScanner)
 
         if self.enableSecretScanner:
-             self.SecretDetectionScanner     = SASTScanner("SecretDetectionScanner", self.path, self.config.get("secretDetectionScanner", []))
+            self.SecretDetectionScanner     = SASTScanner("SecretDetectionScanner", self.path, self.config.get("secretDetectionScanner", []))
+            self.scanners.append(self.SecretDetectionScanner)
         
         if self.enableCustomScanner:
             for key, value in self.config.items():
                 if key in ["dependencyScanner", "injectionsScanner", "secretDetectionScanner"]: continue
-                SASTScanner(key, self.path, value or [])
+                scanner = SASTScanner(key, self.path, value or [])
+                self.scanners.append(scanner)
+
+
+    def getVulnerabilities(self) -> list:
+        vulnerabilities = []
+        for scanner in self.scanners:
+            vulnerabilities += scanner.vulnerarbilities
+        return vulnerabilities
 
 
     def readConfig(self) -> None:

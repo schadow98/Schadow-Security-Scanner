@@ -12,10 +12,10 @@ class BaseScanner:
         This method prints the vulnerabilities found by the scanner.
         """
         if len(self.vulnerarbilities) == 0:
-            logging.info(f"{self.__class__.__name__} found {len(self.vulnerarbilities)} DependencyVulnerabilities")
+            logging.info(f"{self.name} found {len(self.vulnerarbilities)} SASTVulnerabilities")
         else:
             logging.error("-"*20)
-            logging.error(f"{self.__class__.__name__} found {len(self.vulnerarbilities)} DependencyVulnerabilities")
+            logging.error(f"{self.name} found {len(self.vulnerarbilities)} SASTVulnerabilities")
             logging.error("-"*20)
         
             for vulnerability in self.vulnerarbilities:

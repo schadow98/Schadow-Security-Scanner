@@ -2,7 +2,7 @@ import logging
 import json
 
 from BaseScanner import BaseScanner
-from DependencyScanner.RequirmentsFile import RequirementsFile
+from DependencyScanner.RequirementsFile import RequirementsFile
 from DependencyScanner.Sonatype import Sonatype
 from DependencyScanner.Synk import Synk
 from DependencyScanner.DependencyVulnerability import DependencyVulnerability
@@ -17,6 +17,7 @@ class DependencyScanner(BaseScanner):
             dbs list[str]: string for which security dbs get searched
     """
     def __init__(self, workingDir: str, requirementsFilePath: str = None, dbs: list[str] = ["Sonatype"], vulnerabilityFilter: dict={}) -> list[DependencyVulnerability]:
+        self.name = self.__class__.__name__
         self.workingDir             = workingDir
         self.requirementsFilePath   = requirementsFilePath
         self.dbs                    = dbs
@@ -42,7 +43,7 @@ class DependencyScanner(BaseScanner):
             api = None
             if db == "sonatype":
                 api = Sonatype()
-            elif db =="sonatype":
+            elif db =="synk":
                 api = Synk()
             else:
                 logging.warn(f"Skipping db becouse not defined: {db}")
