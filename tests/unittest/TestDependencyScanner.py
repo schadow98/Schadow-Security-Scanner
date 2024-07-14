@@ -13,12 +13,6 @@ class DependencyScanner(DependencyScanner):
     def printVulnerarbilities(self) -> None:
         pass
 
-class DependencyVulnerability(DependencyVulnerability):
-    def __init__(self, id):
-        self.id = id
-    def __eq__(self, other):
-        return self.id == other.id
-
 class TestDependencyScanner(unittest.TestCase):
 
     def test_DependencyScannerWithoutFilter(self):
@@ -47,10 +41,10 @@ class TestDependencyScanner(unittest.TestCase):
         self.assertIsNotNone(dependencyScanner)
         self.assertEqual(len(dependencyScanner.vulnerarbilities), 1)
 
-        expectedVulnerarbilities = [
-            DependencyVulnerability("CVE-2018-18074")
-            ]
-        self.assertListEqual(dependencyScanner.vulnerarbilities, expectedVulnerarbilities)
+        
+        expectedVulnerarbilitiesFiltered = list(filter(lambda x: x.id == "CVE-2018-18074", expectedVulnerarbilities))
+
+        self.assertListEqual(dependencyScanner.vulnerarbilities, expectedVulnerarbilitiesFiltered)
 
     def test_DependencyScannerWithFilterCvssVector(self):
         workingDir = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/requirementsFile/found")
@@ -62,10 +56,10 @@ class TestDependencyScanner(unittest.TestCase):
         self.assertIsNotNone(dependencyScanner)
         self.assertEqual(len(dependencyScanner.vulnerarbilities), 1)
 
-        expectedVulnerarbilities = [
-            DependencyVulnerability("CVE-2013-2099")
-            ]
-        self.assertListEqual(dependencyScanner.vulnerarbilities, expectedVulnerarbilities)
+        expectedVulnerarbilitiesFiltered = list(filter(lambda x: x.id == "CVE-2013-2099", expectedVulnerarbilities))
+
+
+        self.assertListEqual(dependencyScanner.vulnerarbilities, expectedVulnerarbilitiesFiltered)
 
     def test_DependencyScannerWithFilterCvssVectorAndCvssVector(self):
         workingDir = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/requirementsFile/found")
@@ -77,11 +71,10 @@ class TestDependencyScanner(unittest.TestCase):
         dependencyScanner = DependencyScanner(workingDir=workingDir, requirementsFilePath=requirementsFilePath, vulnerabilityFilter=vulnerabilityFilter)
         self.assertIsNotNone(dependencyScanner)
         self.assertEqual(len(dependencyScanner.vulnerarbilities), 1)
+        expectedVulnerarbilitiesFiltered = list(filter(lambda x: x.id == "CVE-2013-2099", expectedVulnerarbilities))
 
-        expectedVulnerarbilities = [
-            DependencyVulnerability("CVE-2013-2099")
-            ]
-        self.assertListEqual(dependencyScanner.vulnerarbilities, expectedVulnerarbilities)
+
+        self.assertListEqual(dependencyScanner.vulnerarbilities, expectedVulnerarbilitiesFiltered)
 
 if __name__ == "__main__":
   unittest.main()
