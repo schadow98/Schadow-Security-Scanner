@@ -1,0 +1,11 @@
+# Sicheres Beispiel 
+# Aktuelle Version
+# Keine bekannten Schwachstellen
+Flask==3.03
+
+# Unsicheres Beispiel
+# Das ist eine alte Version - Die akutelle Version ist 2.32.2
+# Diese alte Version beinhaltet 2 mittlere und 1 kritische Schwachstelle
+requests==2.19.1
+
+# Scan durchgeführt am 16.07.24 über Synk

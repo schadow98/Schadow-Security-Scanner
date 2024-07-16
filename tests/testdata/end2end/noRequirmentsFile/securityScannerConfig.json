@@ -1,0 +1,40 @@
+{
+  "dependencyScanner": {
+    "db": ["Sonatype"],
+    "vulnerabilityFilter": {
+      "cvssScore": "none",
+      "cvssVector": ""
+    }
+  },
+  "secretDetectionScanner":[
+    {
+      "pattern": "[\"\\']?[A-Za-z0-9]{32,}[\"\\']?",
+      "name": "API_KEY",
+      "message": "API KEY detected - please use Environment Variables or Secret Manager to store secrets",
+      "files": [],
+      "kinds": ["src"]
+    },
+    {
+      "pattern": "[\"\\']?password[\"\\']?\\s*[:=]\\s*[\"\\'][^\"\\']{8,}[\"\\']",
+      "name": "PASSWORD",
+      "message": "PASSWORD detected - please use Environment Variables or Secret Manager to store secrets",
+      "files": [],
+      "kinds": ["src"]
+    },
+    {
+      "pattern": "[\"\\']?secret[\"\\']?\\s*[:=]\\s*[\"\\'][^\"\\']{8,}[\"\\']",
+      "name": "SECRET",
+      "message": "SECRET detected - please use Environment Variables or Secret Manager to store secrets",
+      "files": [],
+      "kinds": ["src"]
+    },
+    {
+      "pattern": "-----BEGIN (EC|RSA|DSA|PGP|OPENSSH) PRIVATE KEY-----",
+      "name": "PRIVAT KEY",
+      "message": "PRIVAT KEY detected - please use Environment Variables or Secret Manager to store secrets",
+      "files": [],
+      "kinds": ["src"]
+    }      
+  ]
+  
+}
