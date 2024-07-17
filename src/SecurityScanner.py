@@ -8,7 +8,16 @@ import logger.initLogger
 from logger.initLogger import changeDefaultLogLevel
 
 from SASTScanner.SASTScanner import SASTScanner
-import tools.setEnvironmentVariables
+
+
+
+
+
+# optional skript to load and set environment variables
+import platform
+import dotenv
+if platform.system() == "Windows":
+    dotenv.load_dotenv(".env")
 
 from DependencyScanner.DependencyScanner import DependencyScanner
 
