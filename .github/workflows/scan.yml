@@ -1,19 +1,25 @@
-name: CI
+name: Code Scanner
 
 on:
   workflow_call:
 
 jobs:
-  run-code-scanner:
-    runs-on: ghcr.io/schadow98/schadow-security-scanner:latest
-    if: github.repository != 'schadow98/Schadow-Security-Scanner'
+  scan:
+    runs-on: ubuntu-latest
+
     steps:
     - name: Check out the repository
       uses: actions/checkout@v2
-    - name: Build CLI Tool
+
+    - name: Download build artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: SecurityScanner
+        path: ./dist
+
+    - name: Run Security Scanner
       run: |
-        ls -alt ./dist
-        ./dist/SecurityScannerSchadow
+        ./dist/SecurityScannerSchadow --config ./dist/securityScannerConfig.json --target .
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
