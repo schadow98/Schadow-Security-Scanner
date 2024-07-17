@@ -1,12 +1,15 @@
 FROM alpine
 
 
-Run mkdir /dist
-COPY dist  /dist
+RUN mkdir /dist
+COPY dist /dist
+RUN chmod -R 777 /dist
 RUN ls -alt /dist
 
-Run mkdir /work
+
+RUN mkdir /work
 WORKDIR /work
 RUN ls -alt /work
 
+# Starte das Programm
 CMD ["/dist/SecurityScannerSchadow", "--configFile", "/dist/securityScannerConfig.json", "--work", "/work"]
