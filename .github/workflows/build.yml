@@ -62,11 +62,4 @@ jobs:
         context: .
         push: true
         tags: ghcr.io/${{ env.LOWERCASE_REPO_NAME }}:latest
-
-    - name: Make the image public
-      run: |
-        gh api -X PATCH /user/packages/container/${{ env.LOWERCASE_REPO_NAME }}/visibility \
-        -H "Accept: application/vnd.github.v3+json" \
-        -F 'visibility=public'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        visibility: public
