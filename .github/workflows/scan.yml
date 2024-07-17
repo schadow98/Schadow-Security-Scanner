@@ -9,20 +9,23 @@ jobs:
 
     steps:
     - name: Check out the repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Download build artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: SecurityScanner
         path: ./dist
+        workflow: build.yml
+        repository: schadow98/Schadow-Security-Scanner
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Run Security Scanner
       run: |
         ./dist/SecurityScannerSchadow --config ./dist/securityScannerConfig.json --target .
 
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: logsSecurityScan
         path: logs/
