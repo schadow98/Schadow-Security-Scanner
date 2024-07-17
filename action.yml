@@ -1,13 +1,7 @@
 # action.yml
 name: 'ScanDependencies'
 description: 'Scans ur dependencies'
-inputs:
-  workingdir:  
-    description: 'Which directory should get scanned'
-    required: true
-    default: './'
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/schadow98/schadow-security-scanner:latest'
-  args:
-    - ${{ inputs.workingdir }}
+
