@@ -3,13 +3,9 @@ name: CI
 on:
   workflow_call:
 
-
-env:
-  LOWERCASE_REPO_NAME: schadow98/schadow-security-scanner
-
 jobs:
   run-code-scanner:
-    runs-on: ghcr.io/${{ env.LOWERCASE_REPO_NAME }}:latest
+    runs-on: ghcr.io/schadow98/schadow-security-scanner:latest
     if: github.repository != "schadow98/Schadow-Security-Scanner"
     steps:
     - name: Check out the repository
