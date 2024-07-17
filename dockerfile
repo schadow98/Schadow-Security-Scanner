@@ -1,7 +1,7 @@
 FROM alpine
 
 
-Run mkdir /work
+Run mkdir /dist
 COPY /dist  /dist
 
 Run mkdir /work
