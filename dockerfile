@@ -3,7 +3,7 @@ FROM python:3.11
 RUN mkdir /dist
 COPY src /dist
 COPY securityScannerConfig.json /dist
-RUN chmod -RX 777 /dist
+RUN chmod -R 777 /dist
 RUN ls -alt /dist
 
 RUN mkdir /work
