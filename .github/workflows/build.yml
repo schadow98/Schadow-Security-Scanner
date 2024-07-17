@@ -34,9 +34,6 @@ jobs:
     - name: Run end2end-test
       run: |
         python tests/unittest 
-
-
-  build:
     - name: Build CLI Tool
       run: |
         pyinstaller --onefile --add-data "src:." --distpath ./dist --name SecurityScannerSchadow ./src/SecurityScanner.py
