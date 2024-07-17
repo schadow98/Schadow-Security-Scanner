@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  workflow_call:
+
+
+env:
+  LOWERCASE_REPO_NAME: schadow98/schadow-security-scanner
+
+jobs:
+  run-code-scanner:
+    runs-on: ghcr.io/${{ env.LOWERCASE_REPO_NAME }}:latest
+    if: github.repository != "schadow98/Schadow-Security-Scanner"
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v2
+    - name: Build CLI Tool
+      run: |
+        ls -alt ./dist
+        ./dist/SecurityScannerSchadow
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: logsSecurityScan
+        path: logs/
