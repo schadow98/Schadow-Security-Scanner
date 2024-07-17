@@ -4,8 +4,8 @@ import argparse
 import json
 import logging
 
-import tools.logger.initLogger
-from tools.logger.initLogger import changeDefaultLogLevel
+import logger.initLogger
+from logger.initLogger import changeDefaultLogLevel
 
 from SASTScanner.SASTScanner import SASTScanner
 import tools.setEnvironmentVariables
@@ -26,6 +26,7 @@ class SecurityScanner(object):
         self.requirementsFile           = args.requirementsFile
         self.configFile                 = args.configFile or "./securityScannerConfig.json"
         self.logLevel                   = args.logLevel
+        self.logDir                     = args.logDir
         self.scanners                    = []
         changeDefaultLogLevel(self.logLevel)
         logging.info("SecurityScanner " + json.dumps(self.__dict__, indent=2))
@@ -135,6 +136,14 @@ if __name__ == "__main__":
         default="INFO",
         help='Path to the requirements.txt file containing project dependencies (optional, default="requirements.txt").'
     )
+
+    parser.add_argument(
+        '-v', '--logDir',
+        type=str,
+        default="./logs",
+        help='Directory where the logs get written (optional, default="./logs").'
+    )
+
 
     args = parser.parse_args()
     security_scanner = SecurityScanner(args)
