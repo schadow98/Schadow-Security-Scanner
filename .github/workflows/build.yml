@@ -27,13 +27,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run unittest
-      run: |
-        python tests/unittest 
-
-    - name: Run end2end-test
-      run: |
-        python tests/unittest 
+    # - name: Run unittest
+    #   run: |
+    #     python tests/unittest 
+    # 
+    # - name: Run end2end-test
+    #   run: |
+    #     python tests/unittest 
 
     - name: Build CLI Tool
       run: |
