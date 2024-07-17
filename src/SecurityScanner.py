@@ -1,19 +1,14 @@
 import sys
 import os
-sys.path.append(os.path.dirname(__file__))
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
-
 import argparse
 import json
 import logging
 
-
-
-import tools.logger.initLogger
-from tools.logger.initLogger import changeDefaultLogLevel
+import Tools.Logger.initLogger
+from Tools.Logger.initLogger import changeDefaultLogLevel
 
 from SASTScanner.SASTScanner import SASTScanner
-import tools.setEnvironmentVariables
+import Tools.setEnvironmentVariables
 
 from DependencyScanner.DependencyScanner import DependencyScanner
 
