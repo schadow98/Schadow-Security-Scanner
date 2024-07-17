@@ -8,7 +8,9 @@ create the logging dir
 
 if not os.path.exists('logs'):
     os.makedirs('logs')
-logging.config.fileConfig("./src/Tools/logger/logging.config")
+
+loggingConfigPath = os.path.join(os.path.dirname(__file__), "logging.config")
+logging.config.fileConfig(loggingConfigPath)
 
 def changeDefaultLogLevel(level):
     logging.getLogger("root").setLevel(level.upper())
