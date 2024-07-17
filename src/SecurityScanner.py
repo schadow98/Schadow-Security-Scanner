@@ -2,8 +2,6 @@ import argparse
 import json
 import logging
 import os
-import sys
-sys.path.append(os.path.dirname(__file__))
 
 
 import tools.logger.initLogger

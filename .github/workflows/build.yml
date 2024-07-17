@@ -29,6 +29,7 @@ jobs:
 
     - name: Run unittest
       run: |
+        export PYTHONPATH="${PYTHONPATH}:./src:/src"
         python tests/unittest 
     
     # - name: Run end2end-test
