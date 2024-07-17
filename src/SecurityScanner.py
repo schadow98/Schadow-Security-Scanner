@@ -4,11 +4,11 @@ import argparse
 import json
 import logging
 
-import Tools.Logger.initLogger
-from Tools.Logger.initLogger import changeDefaultLogLevel
+import tools.logger.initLogger
+from tools.logger.initLogger import changeDefaultLogLevel
 
 from SASTScanner.SASTScanner import SASTScanner
-import Tools.setEnvironmentVariables
+import tools.setEnvironmentVariables
 
 from DependencyScanner.DependencyScanner import DependencyScanner
 
