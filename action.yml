@@ -6,9 +6,6 @@ inputs:
     description: 'Which directory should get scanned'
     required: false
     default: '.'
-outputs:
-  time: # id of output
-    logs: 'The report logs'
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/schadow98/schadow-security-scanner:latest'
