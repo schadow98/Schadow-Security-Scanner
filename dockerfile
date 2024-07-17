@@ -1,13 +1,15 @@
 FROM alpine
 
 
-RUN mkdir ./dist
-COPY dist ./dist
-RUN chmod -R 777 ./dist
-RUN ls -alt ./dist
+RUN mkdir /dist
+COPY dist /dist
+RUN chmod -R 777 /dist
+RUN ls -alt /dist
 
-RUN mkdir ./work
-RUN ls -alt ./work
-WORKDIR ./work
+RUN mkdir /work
+RUN ls -alt /work
+WORKDIR /work
 # Starte das Programm
-ENTRYPOINT ["../dist/SecurityScannerSchadow", "--configFile", "../dist/securityScannerConfig.json", "--work", "."]
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+# ENTRYPOINT ["/dist/SecurityScannerSchadow", "--configFile", "/dist/securityScannerConfig.json", "--work", "."]
