@@ -10,4 +10,4 @@ RUN mkdir /work
 RUN ls -alt /work
 WORKDIR /work
 
-ENTRYPOINT ["/dist/SecurityScannerSchadow", "--configFile", "/dist/securityScannerConfig.json", "--work", "/work"]
+ENTRYPOINT [".", "/dist/SecurityScannerSchadow", "--configFile", "/dist/securityScannerConfig.json", "--work", "/work"]
