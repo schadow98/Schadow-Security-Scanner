@@ -6,7 +6,7 @@ on:
 jobs:
   run-code-scanner:
     runs-on: ghcr.io/schadow98/schadow-security-scanner:latest
-    if: github.repository != "schadow98/Schadow-Security-Scanner"
+    if: github.repository != 'schadow98/Schadow-Security-Scanner'
     steps:
     - name: Check out the repository
       uses: actions/checkout@v2
