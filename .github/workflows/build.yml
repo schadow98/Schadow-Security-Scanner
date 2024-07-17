@@ -34,7 +34,7 @@ jobs:
 
     - name: Build CLI Tool
       run: |
-        pyinstaller --onefile --add-data "src;." --distpath ./dist --name SecurityScannerSchadow ./src/SecurityScanner.py
+        pyinstaller --onefile --add-data "src:." --distpath ./dist --name SecurityScannerSchadow ./src/SecurityScanner.py
         cp ./securityScannerConfig.json ./dist/securityScannerConfig.json 
 
     - name: Upload build artifacts
