@@ -12,4 +12,4 @@ WORKDIR /work
 RUN ls -alt /work
 
 # Starte das Programm
-CMD ["/dist/SecurityScannerSchadow", "--configFile", "/dist/securityScannerConfig.json", "--work", "/work"]
+ENTRYPOINT ["/dist/SecurityScannerSchadow", "--configFile", "/dist/securityScannerConfig.json", "--work", "/work"]
