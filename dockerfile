@@ -9,4 +9,4 @@ WORKDIR /work
 
 RUN ls -alt /work
 
-CMD ["/dist/SecurityScannerSchadow.exe", "--configFile", "/dist/securityScannerConfig.json", "--work", "/work"]
+CMD ["/dist/SecurityScannerSchadow", "--configFile", "/dist/securityScannerConfig.json", "--work", "/work"]
