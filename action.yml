@@ -13,7 +13,7 @@ inputs:
   configFile:
     description: 'Path to the configFile to configurate the Security Scanner (default="securityScannerConfig.json").'
     required: false
-    default: "securityScannerConfig.json"
+    default: "/dist/securityScannerConfig.json"
   disableDependenyScanner:
     description: 'Disables the Dependency Scanner (default: enabled)'
     required: false
