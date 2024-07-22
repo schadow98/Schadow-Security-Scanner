@@ -4,7 +4,7 @@ import argparse
 import json
 import logging
 
-import logger.initLogger
+from logger.initLogger import initLoggers
 from logger.initLogger import changeDefaultLogLevel
 
 from SASTScanner.SASTScanner import SASTScanner
@@ -37,6 +37,7 @@ class SecurityScanner(object):
         self.logLevel                   = args.logLevel
         self.logDir                     = args.logDir
         self.scanners                    = []
+        initLoggers(self.logDir)
         changeDefaultLogLevel(self.logLevel)
         logging.info("SecurityScanner " + json.dumps(self.__dict__, indent=2))
 

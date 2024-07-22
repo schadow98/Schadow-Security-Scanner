@@ -34,7 +34,7 @@ class SASTScanner(BaseScanner):
         for root, _, filenames in os.walk(self.workingDir):
             # skip caching - binary files cant get proceeded
             # skipping logs - becouse else the securityscanner finds their a lot of vulnarability
-            if "__pycache__" in root or "logs" in root or "dist" in root or "build" in root : continue
+            if "__pycache__" in root or "logs" in root or "dist" in root or "build" in root or "docs" in root: continue
             for filename in filenames:
                 if filename.endswith(".pyc"): continue
                 full_path = os.path.join(root, filename)
