@@ -153,6 +153,5 @@ if __name__ == "__main__":
         help='Directory where the logs get written (optional, default="./logs").'
     )
 
-
     args = parser.parse_args()
     security_scanner = SecurityScanner(args)
