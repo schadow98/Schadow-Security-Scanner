@@ -18,7 +18,7 @@ inputs:
     required: false
     default: false
   disableInjectionScanner:
-    description: Disables the Injection Scanner (default: enabled)'
+    description: 'Disables the Injection Scanner (default: enabled)'
     required: false
     default: false
   enableCustomScanner:
