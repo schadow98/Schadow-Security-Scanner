@@ -4,7 +4,7 @@ description: 'Scans ur dependencies'
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/schadow98/schadow-security-scanner:latest'
-  entrypoint: ["/dist/entrypoint.sh"]
+  entrypoint: "python /dist/SecurityScanner.py --configFile "${INPUT_CONFIGFILE}" --path "${INPUT_PATH}" --disableDependenyScanner "${INPUT_DISABLEDEPENDENYSCANNER}" --disableInjectionScanner "${INPUT_DISABLEINJECTIONSCANNER}" --enableCustomScanner "${INPUT_ENABLECUSTOMSCANNER}" --disableSecretScanner "${INPUT_DISABLESECRETSCANNER}" --requirementsFile "${INPUT_REQUIREMENTSFILE}" --logLevel "${INPUT_LOGLEVEL}" --logDir "${INPUT_LOGDIR}"
 inputs:
   path:
     description: 'Specify the path to the Python project to scan. Defaults to current directory'
