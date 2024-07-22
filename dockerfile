@@ -3,6 +3,7 @@ FROM python:3.11
 RUN mkdir /dist
 COPY src /dist
 COPY securityScannerConfig.json /dist
+Run pip install -R /dist/requirements.txt
 RUN chmod -R 777 /dist
 RUN ls -alt /dist
 

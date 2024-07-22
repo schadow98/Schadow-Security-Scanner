@@ -143,7 +143,7 @@ if __name__ == "__main__":
         '-l', '--logLevel',
         type=str,
         default="INFO",
-        help='Path to the requirements.txt file containing project dependencies (optional, default="requirements.txt").'
+        help='Define the Loglevel (default="INFO")'
     )
 
     parser.add_argument(

@@ -4,4 +4,40 @@ description: 'Scans ur dependencies'
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/schadow98/schadow-security-scanner:latest'
-
+inputs:
+  path:
+    description: 'Specify the path to the Python project to scan. Defaults to current directory'
+    required: false
+    default: "."
+  configFile:
+    description: 'Path to the configFile to configurate the Security Scanner (default="securityScannerConfig.json").'
+    required: false
+    default: "securityScannerConfig.json"
+  disableDependenyScanner:
+    description: 'Disables the Dependency Scanner (default: enabled)'
+    required: false
+    default: false
+  disableInjectionScanner:
+    description: Disables the Injection Scanner (default: enabled)'
+    required: false
+    default: false
+  enableCustomScanner:
+    description: "Enables the Custom Scanner - Feature demonstrates how to extend the security part (default: disabled)"
+    required: false
+    default: false
+  disableSecretScanner:
+    description: "Disables the Secret Scanner (default: enabled)"
+    required: false
+    default: false
+  requirementsFile:
+    description: 'Path to the requirements.txt file containing project dependencies (optional, default="requirements.txt").'
+    required: false
+    default: "requirements.txt"
+  logLevel:
+    description: 'Define the Loglevel (default="INFO")'
+    required: false
+    default: "INFO"
+  logDir:
+    description: 'Directory where the logs get written (optional, default="./logs").'
+    required: false
+    default: "./logs"
