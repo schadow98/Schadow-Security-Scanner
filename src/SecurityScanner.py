@@ -36,6 +36,7 @@ class SecurityScanner(object):
         self.configFile                 = args.configFile or "./securityScannerConfig.json"
         self.logLevel                   = args.logLevel
         self.logDir                     = args.logDir
+        self.raiseException             = args.raiseException
         self.scanners                    = []
         initLoggers(self.logDir)
         changeDefaultLogLevel(self.logLevel)
@@ -63,6 +64,9 @@ class SecurityScanner(object):
                 if key in ["dependencyScanner", "injectionsScanner", "secretDetectionScanner"]: continue
                 scanner = SASTScanner(key, self.path, value or [])
                 self.scanners.append(scanner)
+
+        if self.raiseException and len(self.getVulnerabilities()) > 0:
+            raise Exception(f"Look in {self.logDir} to find report with errors")
 
 
     def getVulnerabilities(self) -> list:
@@ -152,6 +156,13 @@ if __name__ == "__main__":
         type=str,
         default="./logs",
         help='Directory where the logs get written (optional, default="./logs").'
+    )
+
+    parser.add_argument(
+        '--raiseException',
+        action='store_false',
+        default=True,
+        help='Throws not the security scanner vulnerability exception  - allows to check the intance for the end2end tests'
     )
 
     args = parser.parse_args()

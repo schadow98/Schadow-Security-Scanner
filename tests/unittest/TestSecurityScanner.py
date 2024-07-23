@@ -18,7 +18,8 @@ class TestSecurityScanner(unittest.TestCase):
             requirementsFile="",
             configFile="",
             logLevel="WARNING",
-            logDir="./logs"
+            logDir="./logs",
+            raiseException=False
         )
         securityScanner = SecurityScanner(namespace)
         self.assertEqual(len(securityScanner.scanners), 0)
@@ -43,7 +44,8 @@ class TestSecurityScanner(unittest.TestCase):
             requirementsFile="",
             configFile="",
             logLevel="CRITICAL",
-            logDir="./logs"
+            logDir="./logs",
+            raiseException=False
         )
         securityScanner = SecurityScanner(namespace)
         self.assertEqual(len(securityScanner.scanners), 1)
@@ -69,9 +71,12 @@ class TestSecurityScanner(unittest.TestCase):
             requirementsFile="",
             configFile="",
             logLevel="CRITICAL",
-            logDir="./logs"
+            logDir="./logs",
+            raiseException=False
         )
         securityScanner = SecurityScanner(namespace)
+
+
         self.assertEqual(len(securityScanner.scanners), 4)
         self.assertIsNotNone(securityScanner.configFile)
         self.assertIsNotNone(securityScanner.config)
@@ -94,7 +99,8 @@ class TestSecurityScanner(unittest.TestCase):
             requirementsFile="",
             configFile="",
             logLevel="CRITICAL",
-            logDir="./logs"
+            logDir="./logs",
+            raiseException=False
         )
        
         with self.assertRaises(Exception) as context:
@@ -113,7 +119,8 @@ class TestSecurityScanner(unittest.TestCase):
             requirementsFile=os.path.join(os.environ["PROJECT_PATH"], "tests/testdata/requirementsFile/found/requirements.txt"),
             configFile="",
             logLevel="CRITICAL",
-            logDir="./logs"
+            logDir="./logs",
+            raiseException=False
         )
        
 
