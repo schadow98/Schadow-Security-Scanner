@@ -20,6 +20,7 @@ class Sonatype(object):
 
     # calls the rest api of the db
     def getDependecies(self, dependencies: list[Dependency]) -> dict:
+        if len(dependencies) == 0: return {}
         payload = {
             "coordinates": [
                 f"pkg:pypi/{dependency.name}@{dependency.version}" for dependency in dependencies
@@ -39,6 +40,7 @@ class Sonatype(object):
     # checks if the contains a vulnerability of the libary
     def checkDependecies(self, dependencies: list[Dependency]) -> list[DependencyVulnerability]:
         response = self.getDependecies(dependencies)
+        if not response: return []
         vulnerabilities = []
         for package in response:
             if len(package.get("vulnerabilities", [])) <= 0: 
@@ -65,5 +67,5 @@ class Sonatype(object):
                     vulnerability.get("externalReferences", [])
                       )) 
         
-            return vulnerabilities
+        return vulnerabilities
 
