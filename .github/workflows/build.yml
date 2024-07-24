@@ -31,21 +31,30 @@ jobs:
       run: |
         python tests/unittest 
     
-    # - name: Run end2end-test
-    #   run: |
-    #     python tests/unittest 
+    - name: Build CLI Tool
+      run: |
+        pyinstaller --onefile --add-data "src:." --distpath ./dist --name SecurityScannerSchadow ./src/SecurityScanner.py
+        ls -alt ./dist
+        cp ./securityScannerConfig.json ./dist/securityScannerConfig.json
 
-    # - name: Build CLI Tool
-    #   run: |
-    #     pyinstaller --onefile --add-data "src:." --distpath ./dist --name SecurityScannerSchadow ./src/SecurityScanner.py
-    #     ls -alt ./dist
-    #     cp ./securityScannerConfig.json ./dist/securityScannerConfig.json
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: SecurityScanner
+        path: dist/
+        retention-days: 7
 
-    # - name: Upload build artifacts
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: SecurityScanner
-    #     path: dist/
+    - name: Run end2end-test
+      run: |
+           robot --outputdir ./logs ./tests/end2end/
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: Logs
+        path: logs/
+        retention-days: 7
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1

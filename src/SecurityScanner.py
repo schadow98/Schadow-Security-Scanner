@@ -140,19 +140,19 @@ if __name__ == "__main__":
     parser.add_argument(
         '-r', '--requirementsFile',
         type=str,
-        default="requirements.txt",
+        default=None,
         help='Path to the requirements.txt file containing project dependencies (optional, default="requirements.txt").'
     )
 
     parser.add_argument(
-        '-l', '--logLevel',
+        '-v', '--logLevel',
         type=str,
         default="INFO",
         help='Define the Loglevel (default="INFO")'
     )
 
     parser.add_argument(
-        '-v', '--logDir',
+        '-l', '--logDir',
         type=str,
         default="./logs",
         help='Directory where the logs get written (optional, default="./logs").'

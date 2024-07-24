@@ -1,0 +1,1 @@
+robot --outputdir ./logs ./tests/end2end/

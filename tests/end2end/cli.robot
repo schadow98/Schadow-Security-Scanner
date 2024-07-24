@@ -1,13 +1,20 @@
 *** Settings ***
-Library    Process
+Library    CLILibrary.py
 Documentation     A test suite for the end to end test.
 
 *** Test Cases ***
 Testcase 1
-    Run Process ./dist/SecurityScannerSchadow.exe 
+    Build Executable
+    execute    -p ./tests/testdata/end2end/testcase1_noFindings
+
+Testcase 2
+    build_executable
+    Run Keyword And Expect Error    *    execute  -p ./tests/testdata/end2end/testcase1_Findings
 
 no Requirementsfile
-    [Tags]    negative
-    Connect to Server
-    Run Keyword And Expect Error    *Invalid Password    Login User    ironman    123
-    Verify Unauthorised Access
+    build_executable
+    Run Keyword And Expect Error    *    execute  -p ./tests/testdata/end2end/noRequirmentsFile
+
+wrong config
+    build_executable
+    Run Keyword And Expect Error    *    execute  -p ./tests/testdata/end2end/wrongConfig
