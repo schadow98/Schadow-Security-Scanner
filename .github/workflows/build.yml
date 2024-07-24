@@ -46,7 +46,7 @@ jobs:
 
     - name: Run end2end-test
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.MALTE_GITHUB_TOKEN }}
       run: |
            robot --outputdir ./logs ./tests/end2end/
 
