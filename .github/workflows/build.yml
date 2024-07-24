@@ -45,6 +45,8 @@ jobs:
         retention-days: 7
 
     - name: Run end2end-test
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
            robot --outputdir ./logs ./tests/end2end/
 
