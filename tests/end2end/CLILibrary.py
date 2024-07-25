@@ -7,6 +7,11 @@ from robot.libraries.BuiltIn import BuiltIn
 
 class CLILibrary:
 
+    """
+    CLILibrary class provides method for the endToEnd-Test of the CLI
+    determines and calls the executeable file 
+    There are differences in different plattforms
+    """
     def __init__(self) -> None:
         if platform.system() == "Windows":
             self.exe_name = "SecurityScannerSchadow.exe"
@@ -14,7 +19,7 @@ class CLILibrary:
             self.exe_name = "SecurityScannerSchadow"
         self.exe_path = os.path.join(".", "dist", self.exe_name)
 
-
+    # executes a command - catches and evaluates the output
     def run_command(self, command):
         try:
             result = subprocess.run(command, check=True, text=True, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -24,6 +29,7 @@ class CLILibrary:
             warn(f"Error output: {e.stderr}")
             raise RuntimeError(f"Command '{command}' failed to execute properly") from e
 
+    # builds the executable
     def build_executable(self):
         if not os.path.exists(self.exe_path):
             info("build exe")
@@ -32,9 +38,9 @@ class CLILibrary:
         else:
             info("build already exists")
 
-
+    # calls the security scanner skript
     def execute(self, args):
-        # logdir
+        # calculates a custom logdir for the testcase
         self.log_dir = f"./logs/{BuiltIn().get_variable_value('${TEST NAME}')}".replace(" ", "_")
         if not os.path.exists(self.exe_path):
             os.mkdir(self.log_dir)
