@@ -57,7 +57,7 @@ patternsSecret = [
     "kinds": ["src"]
   }      
 ]
-
+# tries if java can get processed
 class TestJava(unittest.TestCase):
 
     def test_TestJavaFindSecrets(self):

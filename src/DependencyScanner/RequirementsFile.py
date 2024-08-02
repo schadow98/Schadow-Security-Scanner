@@ -11,9 +11,9 @@ class RequirementsFile(object):
     requirmentsfile contains the name and vesion of a third-party libary
     """
     def __init__(self, workingDir: str, requirementsFilePath: str = None) -> None:
-        self.workingDir             = workingDir
-        self.requirementsFilePath   = requirementsFilePath
-        self.dependencies           = []
+        self.workingDir: str                  = workingDir
+        self.requirementsFilePath: str        = requirementsFilePath
+        self.dependencies: list[Dependency]   = []
 
         logging.debug("RequirementsFile without File" + json.dumps(self.__dict__, indent=2))
         if not self.requirementsFilePath:

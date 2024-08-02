@@ -1,0 +1,11 @@
+#.github/workflows/scan.yml
+jobs:
+  SecurityScan:
+    steps:
+      - name: SecurityScanner
+        uses: schadow98/Schadow-Security-Scanner@main  
+        with:
+          path: ./sucess
+          configFile: ./securityScannerConfig.json
+          logDir: ./logs_success
+          requirementsFile: ./sucess/requirements.txt

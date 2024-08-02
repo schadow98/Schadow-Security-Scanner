@@ -11,9 +11,9 @@ class Dependency(object):
             extra (str): extra of third party libary
     """
     def __init__(self, name: str, version: str=None, extra: str=None):
-        self.name       = name
-        self.version    = version
-        self.extra      = extra
+        self.name: str      = name
+        self.version: str   = version
+        self.extra: str     = extra
         logging.debug("Dependency " + json.dumps(self.__dict__, indent=2))
 
     def __str__(self) -> str:

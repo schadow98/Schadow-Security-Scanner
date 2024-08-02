@@ -38,10 +38,12 @@ class SASTScanner(SASTScanner):
     def printVulnerarbilities(self):
         pass
 
-
+# class that checks the correct configration of the SecretScanner
 class TestSecretScanner(unittest.TestCase):
 
     def test_TestSecretScannerFindSecrets(self):
+        # testcase there secrets are in the directory
+        # it should find the vulnerabilities
         workingDir = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/secretDetection/secrets")
  
         res = SASTScanner("secretDetectionScanner", workingDir, patterns).vulnerarbilities
@@ -59,6 +61,8 @@ class TestSecretScanner(unittest.TestCase):
 
 
     def test_TestSecretScannerNoSecrets(self):
+        # testcase there no secrets are in the directory
+        # it should find the 0 vulnerabilities
         workingDir = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/secretDetection/noSecrets")
         res = SASTScanner("secretDetectionScanner", workingDir, patterns).vulnerarbilities
         self.assertEqual(len(res), 0)

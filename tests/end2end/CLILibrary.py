@@ -13,11 +13,12 @@ class CLILibrary:
     There are differences in different plattforms
     """
     def __init__(self) -> None:
+        self.exe_name: str | None = None
         if platform.system() == "Windows":
             self.exe_name = "SecurityScannerSchadow.exe"
         else:
             self.exe_name = "SecurityScannerSchadow"
-        self.exe_path = os.path.join(".", "dist", self.exe_name)
+        self.exe_path: str = os.path.join(".", "dist", self.exe_name)
 
     # executes a command - catches and evaluates the output
     def run_command(self, command):

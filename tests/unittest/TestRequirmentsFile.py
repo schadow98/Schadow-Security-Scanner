@@ -12,10 +12,12 @@ expectedDependencies = [
     Dependency("irgendwas", "1.0.1", "http")
 ]
 
+# tests to test the class RequirementsFile
 class TestRequirementsFile(unittest.TestCase):
 
     def test_findAndParseRequirmentsFile(self):
         """Find a requrimentesFile with all combinations of dependencies
+            it find the requrimentesFile - no requirementsFilePath is set
 
             combinations of dependencies :
             name
@@ -29,6 +31,7 @@ class TestRequirementsFile(unittest.TestCase):
         self.assertListEqual(requirementsFile.dependencies, expectedDependencies)
 
     def test_parseRequirmentsFile(self):
+        # checks if it can works if a requirementsFilePath is set
         workingDir = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/requirementsFile/found")
         requirementsFilePath = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/requirementsFile/found/requirements.txt")
         requirementsFile = RequirementsFile(workingDir=workingDir, requirementsFilePath=requirementsFilePath)
@@ -38,7 +41,8 @@ class TestRequirementsFile(unittest.TestCase):
 
 
     def test_noRequirmentsFileFound(self):
-        
+        # checks if it throws an exception if it can not detect the correct RequirmentsFile
+        # it should end with an exception
 
         with self.assertRaises(Exception) as context:
             workingDir = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/requirementsFile/noRequirementsFile")

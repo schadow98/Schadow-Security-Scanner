@@ -8,7 +8,6 @@
   },
 
   "injectionsScanner": [
-
     {
         "pattern": "(?<![\\w])eval\\(",
         "name": "eval",
@@ -17,21 +16,14 @@
         "kinds": ["src", "ast"]
       },
       {
-        "pattern": "(SELECT|INSERT|UPDATE|DELETE|DROP|EXEC)\\s+.*(['\"].*['\"].*|.*\\+.*|.*\\{\\d+\\}.*)",
+        "pattern": "(SELECT|UPDATE|INSERT|DELETE|DROP)\\s+.*(['\"].*['\"].*|.*\\+.*|.*\\{\\d+\\}.*)",
         "name": "sqlPattern",
         "message": "SqlCommand with string concatenation detected",
-        "files": [".py"],
+        "files": [],
         "kinds": ["src"]
       }
   ],
   "secretDetectionScanner":[
-    {
-      "pattern": "[\"\\']?[A-Za-z0-9]{32,}[\"\\']?",
-      "name": "API_KEY",
-      "message": "API KEY detected - please use Environment Variables or Secret Manager to store secrets",
-      "files": [],
-      "kinds": ["src"]
-    },
     {
       "pattern": "[\"\\']?password[\"\\']?\\s*[:=]\\s*[\"\\'][^\"\\']{8,}[\"\\']",
       "name": "PASSWORD",
@@ -52,7 +44,14 @@
       "message": "PRIVAT KEY detected - please use Environment Variables or Secret Manager to store secrets",
       "files": [],
       "kinds": ["src"]
-    }      
+    },
+    {
+      "pattern": "[\"\\']?[A-Za-z0-9]{32,}[\"\\']?",
+      "name": "API_KEY",
+      "message": "API KEY detected - please use Environment Variables or Secret Manager to store secrets",
+      "files": [],
+      "kinds": ["src"]
+    }
   ],
   "XSS_ExampleScanner":  [
       {

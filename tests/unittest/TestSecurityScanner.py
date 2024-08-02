@@ -6,6 +6,8 @@ from DependencyScanner.DependencyVulnerability import DependencyVulnerability
 from SASTScanner.SASTVulnerability import SASTVulnerability
 from SecurityScanner import SecurityScanner
 
+# this class checks if the main class SecurityScanner works as expected
+# this tests should checks if the programms parses the input paramter correct
 class TestSecurityScanner(unittest.TestCase):
     def testDisableScanner(self):
         workingDir = os.path.join(os.environ["PROJECT_PATH"], "tests/testdata/requirementsFile/found")

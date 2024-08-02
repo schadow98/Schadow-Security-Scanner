@@ -15,7 +15,7 @@ class Sonatype(object):
     It is free to use, but has a limit of 128 Packges get at checked at one
     """
     def __init__(self) -> None:
-        self.apiUrl = 'https://ossindex.sonatype.org/api/v3/component-report'
+        self.apiUrl: str = 'https://ossindex.sonatype.org/api/v3/component-report'
         logging.info("Sonattype " + json.dumps(self.__dict__, indent=2))
 
     # calls the rest api of the db

@@ -17,16 +17,16 @@ class DependencyScanner(BaseScanner):
             dbs list[str]: string for which security dbs get searched
     """
     def __init__(self, workingDir: str, requirementsFilePath: str = None, dbs: list[str] = ["Sonatype"], vulnerabilityFilter: dict={}) -> list[DependencyVulnerability]:
-        self.name = self.__class__.__name__
-        self.workingDir             = workingDir
-        self.requirementsFilePath   = requirementsFilePath
-        self.dbs                    = dbs
-        self.vulnerabilityFilter    = vulnerabilityFilter
+        self.name: str                   = self.__class__.__name__
+        self.workingDir: str             = workingDir
+        self.requirementsFilePath: str   = requirementsFilePath
+        self.dbs : list[str]             = dbs
+        self.vulnerabilityFilter: dict   = vulnerabilityFilter
         logging.info("DependencyScanner " + json.dumps(self.__dict__, indent=2))
 
-        self.requirementsFile   = RequirementsFile(workingDir, requirementsFilePath)
+        self.requirementsFile: RequirementsFile = RequirementsFile(workingDir, requirementsFilePath)
 
-        self.vulnerarbilities = []
+        self.vulnerarbilities: list[DependencyVulnerability] = []
         self.getVulnerarbilities()
         self.optionalFilterVulterabilites()
         self.printVulnerarbilities()

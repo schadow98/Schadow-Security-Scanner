@@ -25,17 +25,22 @@ class SASTScanner(SASTScanner):
     def printVulnerarbilities(self):
         pass
 
-
+ # tests if the SASTScanner works as expected
 class InjectionScanner(unittest.TestCase):
 
     def test_FindNoInjectionVulnerabilities(self):
+        # if the patterns works an no vulnerabilites get found
+        # checks if there is no wrong-positv results
         workingDir = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/injectionScanner/noFindings")
  
         res = SASTScanner("InjectionScanner", workingDir, patterns).vulnerarbilities
         self.assertEqual(len(res), 0)
         self.assertIsInstance(res, list)
 
-    def test_TestSecretScannerFindSecretsAll(self):
+    def test_TestSASTScannerFindSecretsAll(self):
+        # if the patterns works an vulnerabilites get found
+        # checks the sceretDetections pattern
+        # checks if there is no positv-positv results
         workingDir = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/injectionScanner/findings")
  
         res = SASTScanner("secretDetectionScanner", workingDir, patterns).vulnerarbilities
@@ -51,7 +56,11 @@ class InjectionScanner(unittest.TestCase):
             self.assertTrue(hasattr(item, 'line'))
             self.assertTrue(hasattr(item, 'code'))
 
-    def test_TestSecretScannerFindSecretsSrc(self):
+    def test_TestSASTScannerFindinectionSrc(self):
+        # if the patterns works an vulnerabilites get found
+        # checks the src method
+        # checks the injection pattern
+        # checks if there is no positv-positv results
         workingDir = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/injectionScanner/findings")
         patterns = [{
         "pattern": "(?<![\\w])eval\\(",
@@ -76,7 +85,11 @@ class InjectionScanner(unittest.TestCase):
             self.assertTrue(hasattr(item, 'code'))
 
 
-    def test_TestSecretScannerFindSecretsAst(self):
+    def test_TestSASTScannerFindinectionAST(self):
+        # if the patterns works an vulnerabilites get found
+        # checks the ast method
+        # checks the injection pattern
+        # checks if there is no positv-positv results
         workingDir = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/injectionScanner/findings")
         patterns = [
 
@@ -103,6 +116,11 @@ class InjectionScanner(unittest.TestCase):
             self.assertTrue(hasattr(item, 'code'))
 
     def test_TestSecretScannerFindSecretsEval(self):
+        # if the patterns works an vulnerabilites get found
+        # checks the ast and src method
+        # checks the injection pattern
+        # checks if there is no positv-positv results
+
         workingDir = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/injectionScanner/findings")
         patterns = [
 

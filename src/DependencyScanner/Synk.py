@@ -13,13 +13,13 @@ class Synk(object):
     It needs a payment -> and then environmentvariables of the account need to set
     """
     def __init__(self) -> None:
-        self.synkAuthToken = os.getenv("SYNK_AUTH_TOKEN")
+        self.synkAuthToken: str = os.getenv("SYNK_AUTH_TOKEN")
         if not self.synkAuthToken:
             raise Exception("No Environment Variable Set: SYNK_AUTH_TOKEN - maybe create .env-File or configurate Pipeline")
-        self.organizationId = os.getenv("ORGANIZATION_ID")
+        self.organizationId: str = os.getenv("ORGANIZATION_ID")
         if not self.organizationId:
             raise Exception("No Environment Variable Set: ORGANIZATION_ID - maybe create .env-File or configurate Pipeline")
-        self.snykApiUrl = 'https://snyk.io/api/v1/test/pip'
+        self.snykApiUrl: str = 'https://snyk.io/api/v1/test/pip'
         logging.info("Synk " + json.dumps(self.__dict__(), indent=2))
 
     def __dict__(self) -> dict:

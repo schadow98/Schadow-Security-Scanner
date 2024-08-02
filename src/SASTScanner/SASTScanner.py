@@ -10,13 +10,13 @@ from SASTScanner.SASTVulnerability import SASTVulnerability
 
 class SASTScanner(BaseScanner):
     def __init__(self, name:str, workingDir: str, patterns: list[dict] = []):  # -> list[Vulnerability]:
-        self.name = name 
-        self.workingDir         = workingDir
-        self.sourceCodeFiles    = set()
+        self.name: str = name 
+        self.workingDir: str         = workingDir
+        self.sourceCodeFiles: set[str]    = set()
         self.findAllSourceCodeFiles()      
         
-        self.patterns = patterns
-        self.vulnerarbilities = []
+        self.patterns: list[dict]  = patterns
+        self.vulnerarbilities:list[SASTVulnerability] = []
         logging.info(f"{self.name} " + json.dumps(self.__dict__(), indent=2))
         
         self.scannInjectionPatterns()

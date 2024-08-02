@@ -27,17 +27,17 @@ class SecurityScanner(object):
     :type args: argparse.Namespace - the arguments that get entered on the command line
     """
     def __init__(self, args: argparse.Namespace) -> None:
-        self.path                       = args.path
-        self.enableDependenyScanner     = not args.disableDependenyScanner
-        self.enableInjectionScanner     = not args.disableInjectionScanner
-        self.enableSecretScanner        = not args.disableSecretScanner
-        self.enableCustomScanner        = args.enableCustomScanner
-        self.requirementsFile           = args.requirementsFile
-        self.configFile                 = args.configFile or "./securityScannerConfig.json"
-        self.logLevel                   = args.logLevel
-        self.logDir                     = args.logDir
-        self.raiseException             = args.raiseException
-        self.scanners                    = []
+        self.path: str              = args.path
+        self.enableDependenyScanner: bool         = not args.disableDependenyScanner
+        self.enableInjectionScanner: bool         = not args.disableInjectionScanner
+        self.enableSecretScanner: bool            = not args.disableSecretScanner
+        self.enableCustomScanner: bool            = args.enableCustomScanner
+        self.requirementsFile: str                = args.requirementsFile
+        self.configFile: str                      = args.configFile or "./securityScannerConfig.json"
+        self.logLevel: str                        = args.logLevel
+        self.logDir: str                          = args.logDir
+        self.raiseException: bool                 = args.raiseException
+        self.scanners: list                       = []
         initLoggers(self.logDir)
         changeDefaultLogLevel(self.logLevel)
         logging.info("SecurityScanner " + json.dumps(self.__dict__, indent=2))

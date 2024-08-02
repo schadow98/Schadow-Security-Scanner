@@ -14,7 +14,8 @@ class DependencyScanner(DependencyScanner):
         pass
 
 class TestDependencyScanner(unittest.TestCase):
-
+    # class to tests the DependencyScanner
+    
     def test_DependencyScannerWithoutFilter(self):
         """Find a requrimentesFile with all combinations of dependencies
 
@@ -31,6 +32,9 @@ class TestDependencyScanner(unittest.TestCase):
         self.assertListEqual(dependencyScanner.vulnerarbilities, expectedVulnerarbilities)
 
     def test_DependencyScannerWithFilterCvssScore(self):
+        """ Testcase what checks if the vulnerabilityFilter Works as expected
+            Filters for the CvssScore - this filters works with a number and an euqal and higher equation
+        """
         workingDir = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/requirementsFile/found")
         requirementsFilePath = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/requirementsFile/found/requirements.txt")
         vulnerabilityFilter = {
@@ -47,6 +51,9 @@ class TestDependencyScanner(unittest.TestCase):
         self.assertListEqual(dependencyScanner.vulnerarbilities, expectedVulnerarbilitiesFiltered)
 
     def test_DependencyScannerWithFilterCvssVector(self):
+        """ Testcase what checks if the vulnerabilityFilter Works as expected
+            Filters for the CvssVector - checks if a defined vector is in the cvssVector of the vulnerability
+        """
         workingDir = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/requirementsFile/found")
         requirementsFilePath = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/requirementsFile/found/requirements.txt")
         vulnerabilityFilter = {
@@ -62,6 +69,9 @@ class TestDependencyScanner(unittest.TestCase):
         self.assertListEqual(dependencyScanner.vulnerarbilities, expectedVulnerarbilitiesFiltered)
 
     def test_DependencyScannerWithFilterCvssVectorAndCvssVector(self):
+        """ Testcase what checks if the vulnerabilityFilter Works as expected
+            Filters for the CvssVector and CvssVector - checks if it works with a string AND number statement
+        """
         workingDir = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/requirementsFile/found")
         requirementsFilePath = os.path.join(os.environ["PROJECT_PATH"], "./tests/testdata/requirementsFile/found/requirements.txt")
         vulnerabilityFilter = {

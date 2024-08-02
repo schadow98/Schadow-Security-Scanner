@@ -18,14 +18,14 @@ class GitHubCICDActionsLibrary:
     this class needs an environment variable GITHUB_TOKEN - it is a token, that is allowed to execute actions on the test project
     '''
     def __init__(self):
-        self.owner = 'schadow98'
-        self.repo = 'SecurityScannerTest'
+        self.owner: str = 'schadow98'
+        self.repo: str = 'SecurityScannerTest'
 
-        self.baseUrl = f'https://api.github.com/repos/{self.owner}/{self.repo}'
+        self.baseUrl: str = f'https://api.github.com/repos/{self.owner}/{self.repo}'
 
     # calculates the headers for the rest call
     def getHeaders(self):
-        github_token = os.getenv('GITHUB_TOKEN')
+        github_token: str = os.getenv('GITHUB_TOKEN')
         if not github_token:
             raise ValueError("Please set the environmentvariable 'GITHUB_TOKEN'.")
 
@@ -36,12 +36,12 @@ class GitHubCICDActionsLibrary:
 
     # calls the rest interface to trigger the actions
     def trigger_workflow(self, workflow_id):
-        self.workflow_id = workflow_id
-        url = self.baseUrl + f'/actions/workflows/{self.workflow_id}/dispatches'
+        self.workflow_id: str = workflow_id
+        url: str = self.baseUrl + f'/actions/workflows/{self.workflow_id}/dispatches'
         info("url " + url)
 
         # calculates a unique id to identify later the workflow jobs
-        self.run_identifier = str(uuid.uuid4())
+        self.run_identifier: str = str(uuid.uuid4())
 
         payload = {
             "ref": "main",

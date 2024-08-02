@@ -8,7 +8,7 @@ create the logging dir
 """
 
 
-def initLoggers(logDir):
+def initLoggers(logDir: str):
     if not logDir:
         logDir = 'logs'
 
@@ -16,7 +16,7 @@ def initLoggers(logDir):
     if not os.path.exists(logDir):
         os.makedirs(logDir)
 
-    loggingConfigPath = os.path.join(os.path.dirname(__file__), "logging.config")
+    loggingConfigPath: str = os.path.join(os.path.dirname(__file__), "logging.config")
 
     logging.config.fileConfig(loggingConfigPath)
 
